@@ -8,17 +8,17 @@ from langchain import hub
 from langchain.chat_models import ChatOpenAI
 from langchain.schema.runnable import RunnablePassthrough
 import os
-import getpass
 
 # skeleton code from https://python.langchain.com/docs/use_cases/question_answering/
 
 # load environment variables
 load_dotenv()
-os.environ['OPENAI_API_KEY'] = getpass.getpass('OpenAI API Key:')
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
 # load Notion DB 
-loader = NotionDirectoryLoader("Zhouyao_Notion_DB")
+loader = NotionDirectoryLoader("data", encoding='utf8')
 docs = loader.load()
+print("Notion data loaded!")
 
 # Split documents first on headers then on char
 headers_to_split_on = [
